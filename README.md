@@ -1,6 +1,6 @@
 Library Nyx 
-(c) 2015 David Martinez Oliveira
 ----------------------------
+(c) 2015 David Martinez Oliveira
 Nyx is a base code library providing generic functionalities to build C applications. Simple and light
 
 
