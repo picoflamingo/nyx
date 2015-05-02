@@ -10,12 +10,11 @@ Nyx is a base code library providing generic functionalities to build C applicat
 
 
 http://en.wikipedia.org/wiki/Nyx
--------------------------------------------
-Nyx – is the Greek goddess (or personification) of the night. A shadowy figure, Nyx stood at or near the beginning of creat
+
+_Nyx – is the Greek goddess (or personification) of the night. A shadowy figure, Nyx stood at or near the beginning of creat
 ion, and was the mother of other personified deities such as Hypnos (Sleep) and Thanatos (Death). Her appearances are spars
 e in surviving mythology, but reveal her as a figure of such exceptional power and beauty, that she is feared by Zeus himse
-lf. She is found in the shadows of the world and only ever seen in glimpses.
--------------------------------------------
+lf. She is found in the shadows of the world and only ever seen in glimpses._
 
 .
 
