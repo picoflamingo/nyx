@@ -19,39 +19,33 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h> 
+
+#include <unistd.h>
+#include <pthread.h>
 
 #include <nyx.h>
-#include <nyx_list.h>
-
-typedef struct my_type_t
-{
-  NYX_BASIC_ITEM bi;
-  int            val;
-} MY_TYPE;
-
+#include <nyx_channel.h>
 
 int
 main (int argc, char *argv[])
 {
-  NYX_LIST  *l;
-  MY_TYPE   o1, o2, *p;
+  NYX_CHANNEL *c1, *c2;
 
   nyx_init ();
+  c1 = nyx_channel_new (NULL);
+ 
+  nyx_channel_tcp_init (c1, "127.0.0.1", 8000, 0);
+  nyx_channel_print (c1, "Hello World!\n");
+  nyx_channel_free (c1);
 
-  l = nyx_list_new ("test_list", 16, sizeof(MY_TYPE));
-  
-  p = &o1;
-  OBJ_ID(p) = strdup ("Object1");
-  p->val = 10;
-  nyx_list_add_item (l, p);
-
-  p = &o2;
-  OBJ_ID(p) = strdup ("Object2");
-  p->val = 20;
-  nyx_list_add_item (l, p);
-
-  nyx_list_dump (l);
-
+  c1 = nyx_channel_new (NULL);
+  nyx_channel_tcp_init (c1, "*", 8001,1); 
+  c2 = nyx_channel_accept (c1);
+  nyx_channel_print (c2, "I'm Muzzy the Server!\n");
+  nyx_channel_free (c2);
+  nyx_channel_free (c1);
 
   nyx_cleanup ();
   return 0;

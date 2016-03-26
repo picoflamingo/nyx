@@ -19,42 +19,35 @@
 */
 
 
-#ifndef NYX_LIST_H
-#define NYX_LIST_H
+#ifndef NYX_QUEUE_H
+#define NYX_QUEUE_H
 
-#define SIZE_INC  16
+#include <pthread.h>
 
-typedef struct nyx_basic_item_t
+typedef struct nyx_queue_t
 {
-  char   *id;
-} NYX_BASIC_ITEM;
-
-
-typedef struct nyx_list_t
-{
-  NYX_BASIC_ITEM bi;
-  int            size;
-  int            n;
-  int            item_size;
-  int            (*item_free) (void *);
-  void            **item;
-} NYX_LIST;
-
-#define OBJ_ID(p) ((NYX_BASIC_ITEM*)p)->id
+  int              cap;   /* Queue capacity */
+  int              n;     /* Number of items in the queue */
+  void*            *item; /* Storage */
+  int              head;
+  int              tail;
+  pthread_mutex_t  mutex;
+  pthread_cond_t   empty;
+  pthread_cond_t   full;
+} NYX_QUEUE;
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-  NYX_LIST* nyx_list_new (char *id, int size, int item_size);
-  int       nyx_list_free (NYX_LIST *l);
-  int       nyx_list_dump (NYX_LIST *l);
 
-  int       nyx_list_add_item  (NYX_LIST *l, void* item);
-  void*     nyx_list_find_item (NYX_LIST *l, char *id);
-  int       nyx_list_del_item_by_index (NYX_LIST *l, int i);
-  void*     nyx_list_get_item  (NYX_LIST *l, int i);
-
+  NYX_QUEUE* nyx_queue_new  (int size);
+  int        nyx_queue_free (NYX_QUEUE *q);
+  int        nyx_queue_add  (NYX_QUEUE *q, void *item);
+  void*      nyx_queue_get  (NYX_QUEUE *q);
+  void*      nyx_queue_peek (NYX_QUEUE *q);
+  
+  void*      nyx_queue_dbg_dump (NYX_QUEUE *q);
 
 #ifdef __cplusplus
 }

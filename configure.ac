@@ -15,6 +15,7 @@ AC_CONFIG_MACRO_DIR([m4])
 
 # Checks for programs
 AC_PROG_CC
+AM_PROG_AR
 AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
 
@@ -66,6 +67,7 @@ AC_SUBST(JONES_DATADIR)
 # Output Files
 AC_CONFIG_FILES([Makefile \
 		doc/Makefile \
+		tests/Makefile \
 		src/Makefile])
 AC_OUTPUT
 

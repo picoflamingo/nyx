@@ -1,3 +1,6 @@
 
+Fri Mar 25 18:11:54 CET 2016
+	* Added NYX_QUEUE, NYX_CHANNEL and NYX_NET (using poll)
+
 Wed Apr  1 19:02:26 CEST 2015
 	* Project creation

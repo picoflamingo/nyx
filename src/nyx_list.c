@@ -37,7 +37,10 @@ nyx_list_new (char *id, int size, int item_size)
       return NULL;
     }
   bi = (NYX_BASIC_ITEM*)l;
-  bi->id = strdup (id);
+  if (id)
+    bi->id = strdup (id);
+  else
+    bi->id= NULL;
   l->size = size;
   l->n = 0 ;
   l->item_size = item_size;
@@ -137,9 +140,26 @@ nyx_list_find_item (NYX_LIST *l, char *id)
   return NULL;
 }
 
+
+int       
+nyx_list_del_item_by_index (NYX_LIST *l, int i)
+{
+  if (!l) return -1;
+  if ((i< 0) || (i >= l->n)) return -1;
+
+  /* We just copy the last item into the one being deleted*/
+  l->item[i] = l->item[l->n - 1];
+  l->n--;
+
+
+  return 0;
+}
+
 void* 
 nyx_list_get_item (NYX_LIST *l, int i)
 {
-  fprintf (stderr, "Function %s not yet implemented\n", __FUNCTION__);
-  return 0;
+  if (!l) return NULL;
+  if ((i< 0) || (i > l->n)) return NULL;
+  
+  return l->item[i];
 }

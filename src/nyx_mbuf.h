@@ -18,42 +18,34 @@
  * along with Nyx.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#ifndef NYX_MBUF_H
+#define NYX_MBUF_H
 
-#ifndef NYX_LIST_H
-#define NYX_LIST_H
+#define NYX_REALLOC_INC  1024
 
-#define SIZE_INC  16
-
-typedef struct nyx_basic_item_t
+typedef struct nyx_mbuf_t
 {
-  char   *id;
-} NYX_BASIC_ITEM;
-
-
-typedef struct nyx_list_t
-{
-  NYX_BASIC_ITEM bi;
-  int            size;
-  int            n;
-  int            item_size;
-  int            (*item_free) (void *);
-  void            **item;
-} NYX_LIST;
-
-#define OBJ_ID(p) ((NYX_BASIC_ITEM*)p)->id
+  char *buf;
+  int  size;  /* Buffer size*/
+  int  len;   /* Lenght of data */
+} NYX_MBUF;
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-  NYX_LIST* nyx_list_new (char *id, int size, int item_size);
-  int       nyx_list_free (NYX_LIST *l);
-  int       nyx_list_dump (NYX_LIST *l);
+  NYX_MBUF*        nyx_mbuf_new        (int size, char *str);
+  int              nyx_mbuf_free       (NYX_MBUF *b);
 
-  int       nyx_list_add_item  (NYX_LIST *l, void* item);
-  void*     nyx_list_find_item (NYX_LIST *l, char *id);
-  int       nyx_list_del_item_by_index (NYX_LIST *l, int i);
-  void*     nyx_list_get_item  (NYX_LIST *l, int i);
+  int              nyx_mbuf_append     (NYX_MBUF *b, void *buf, int len);
+  int              nyx_mbuf_append_txt (NYX_MBUF *b, char *str);
+  char*            nyx_mbuf_peek_line  (NYX_MBUF *b);
+  char*            nyx_mbuf_get_line   (NYX_MBUF *b);
+  int              nyx_mbuf_printf     (NYX_MBUF *b, char *fmt, ...);
+
+  int              nyx_mbuf_get_len    (NYX_MBUF *b);
+  int              nyx_mbuf_get_size   (NYX_MBUF *b);
+  void*            nyx_mbuf_get_data   (NYX_MBUF *b);
 
 
 #ifdef __cplusplus

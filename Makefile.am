@@ -1,5 +1,5 @@
 ACLOCAL_AMFLAGS=-I m4
-SUBDIRS = src doc
+SUBDIRS = src doc tests
 EXTRA_DIST= ChangeLog BUGS INSTALL
 
 #cfgdir=@NYX_DATADIR@

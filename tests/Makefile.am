@@ -21,16 +21,29 @@
 #AM_CFLAGS=-I$(srcdir)/../include
 
 
+noinst_PROGRAMS=test01 test_mbuf test_queue test_channel test_net \
+		test_net_server test_server
 
-# Nyx Library
+test01_SOURCES=test01.c
+test01_LDADD=../src/libnyx.la -lpthread
 
-EXTRA_DIST= nyx.h nyx_list.h nyx_mbuf.h nyx_queue.h nyx_channel.h \
-	    nyx_net.h nyx_server.h
-include_HEADERS= nyx.h nyx_list.h nyx_mbuf.h nyx_queue.h nyx_channel.h \
-		 nyx_net.h nyx_server.h
+test_mbuf_SOURCES=test_mbuf.c
+test_mbuf_LDADD=../src/libnyx.la -lpthread
 
-lib_LTLIBRARIES = libnyx.la
-libnyx_la_SOURCES= nyx.c nyx_list.c nyx_mbuf.c nyx_queue.c nyx_channel.c \
-	           nyx_net.c nyx_server.c
-libnyx_la_LIBADD=-lpthread
+test_queue_SOURCES=test_queue.c
+test_queue_LDADD=../src/libnyx.la -lpthread
+
+test_channel_SOURCES=test_channel.c
+test_channel_LDADD=../src/libnyx.la -lpthread
+
+test_net_SOURCES=test_net.c
+test_net_LDADD=../src/libnyx.la -lpthread
+
+test_net_server_SOURCES=test_net_server.c
+test_net_server_LDADD=../src/libnyx.la -lpthread
+
+test_server_SOURCES=test_server.c
+test_server_LDADD=../src/libnyx.la -lpthread
+
+
 
