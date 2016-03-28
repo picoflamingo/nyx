@@ -60,7 +60,7 @@ _nyx_server_read_cb (NYX_CHANNEL *c, void *arg)
   /* Checks if there is a line available */
   if ((txt = nyx_channel_get_line (msg->c)))
     {
-      /* Update message and add to queue */
+      /* Update message and add to queue.. Zero Copy */
       nyx_net_msg_set (msg, (void*)txt, strlen(txt), msg->c, msg->q);
       nyx_queue_add (msg->q, msg);
     }
@@ -120,7 +120,7 @@ nyx_server_new (char *ip, int port)
       free (aux);
       return NULL;
     }
-  if ((aux->w = nyx_worker_new (aux->q, NULL)) == NULL)
+  if ((aux->w = nyx_worker_new (aux->q, aux)) == NULL)
     {
       fprintf (stderr , "Cannot create message worker object\n");
       nyx_queue_free (aux->q);
@@ -161,7 +161,7 @@ nyx_server_register (NYX_SERVER *s, NYX_NET *net, NYX_WORKER_FUNC f)
 
   if (net)
     {
-      nyx_worker_start (s->w, f, s);
+      nyx_worker_start (s->w, f, (void*)s->w);
       nyx_net_register (net, s->s, s->q);
 
     }
@@ -270,11 +270,29 @@ nyx_worker_free (NYX_WORKER *w)
 
 
 int           
+nyx_worker_set_data (NYX_WORKER *w, void *data)
+{
+  if (!w) return -1;
+  w->data = data;
+  return 0;
+}
+
+void*         
+nyx_worker_get_data (NYX_WORKER *w)
+{
+  if (!w) return NULL;
+  return w->data;
+}
+
+
+int           
 nyx_worker_start (NYX_WORKER *w, NYX_WORKER_FUNC f, void *arg)
 {
   if (!w) return -1;
 
   w->run  = 1;
+  w->args = arg;
+
   pthread_create (&w->tid, NULL, f, arg);
 
   return 0;

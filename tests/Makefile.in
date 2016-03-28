@@ -102,7 +102,8 @@ build_triplet = @build@
 host_triplet = @host@
 noinst_PROGRAMS = test01$(EXEEXT) test_mbuf$(EXEEXT) \
 	test_queue$(EXEEXT) test_channel$(EXEEXT) test_net$(EXEEXT) \
-	test_net_server$(EXEEXT) test_server$(EXEEXT)
+	test_net_server$(EXEEXT) test_server$(EXEEXT) \
+	test_server1$(EXEEXT)
 subdir = tests
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/depcomp
@@ -143,6 +144,9 @@ test_queue_DEPENDENCIES = ../src/libnyx.la
 am_test_server_OBJECTS = test_server.$(OBJEXT)
 test_server_OBJECTS = $(am_test_server_OBJECTS)
 test_server_DEPENDENCIES = ../src/libnyx.la
+am_test_server1_OBJECTS = test_server1.$(OBJEXT)
+test_server1_OBJECTS = $(am_test_server1_OBJECTS)
+test_server1_DEPENDENCIES = ../src/libnyx.la
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -180,11 +184,11 @@ am__v_CCLD_1 =
 SOURCES = $(test01_SOURCES) $(test_channel_SOURCES) \
 	$(test_mbuf_SOURCES) $(test_net_SOURCES) \
 	$(test_net_server_SOURCES) $(test_queue_SOURCES) \
-	$(test_server_SOURCES)
+	$(test_server_SOURCES) $(test_server1_SOURCES)
 DIST_SOURCES = $(test01_SOURCES) $(test_channel_SOURCES) \
 	$(test_mbuf_SOURCES) $(test_net_SOURCES) \
 	$(test_net_server_SOURCES) $(test_queue_SOURCES) \
-	$(test_server_SOURCES)
+	$(test_server_SOURCES) $(test_server1_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -242,8 +246,6 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
-JONES_BASEDIR = @JONES_BASEDIR@
-JONES_DATADIR = @JONES_DATADIR@
 LD = @LD@
 LDFLAGS = @LDFLAGS@
 LIBOBJS = @LIBOBJS@
@@ -259,6 +261,8 @@ MKDIR_P = @MKDIR_P@
 MY_TOP_DIR = @MY_TOP_DIR@
 NM = @NM@
 NMEDIT = @NMEDIT@
+NYX_BASEDIR = @NYX_BASEDIR@
+NYX_DATADIR = @NYX_DATADIR@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
 OTOOL = @OTOOL@
@@ -343,6 +347,8 @@ test_net_server_SOURCES = test_net_server.c
 test_net_server_LDADD = ../src/libnyx.la -lpthread
 test_server_SOURCES = test_server.c
 test_server_LDADD = ../src/libnyx.la -lpthread
+test_server1_SOURCES = test_server1.c
+test_server1_LDADD = ../src/libnyx.la -lpthread
 all: all-am
 
 .SUFFIXES:
@@ -415,6 +421,10 @@ test_server$(EXEEXT): $(test_server_OBJECTS) $(test_server_DEPENDENCIES) $(EXTRA
 	@rm -f test_server$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(test_server_OBJECTS) $(test_server_LDADD) $(LIBS)
 
+test_server1$(EXEEXT): $(test_server1_OBJECTS) $(test_server1_DEPENDENCIES) $(EXTRA_test_server1_DEPENDENCIES) 
+	@rm -f test_server1$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(test_server1_OBJECTS) $(test_server1_LDADD) $(LIBS)
+
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
 
@@ -428,6 +438,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_net_server.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_queue.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_server.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_server1.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

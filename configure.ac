@@ -1,8 +1,23 @@
-dnl libnyx. The working stuff in the shadows
-dnl Author: David Martinez Oliveira <dmo@papermint-designs.com>
-dnl
-dnl __LICENSE__
-dnl
+dnl 
+dnl  Nyx: A library with basic functions
+dnl  Copyright (c) 2015 David Mart.nez Oliveira
+dnl 
+dnl  This file is part of Nyx
+dnl 
+dnl  Nyx is free software: you can redistribute it and/or modify
+dnl  it under the terms of the GNU General Public License as published by
+dnl  the Free Software Foundation, either version 3 of the License, or
+dnl  (at your option) any later version.
+dnl 
+dnl  Nyx is distributed in the hope that it will be useful,
+dnl  but WITHOUT ANY WARRANTY; without even the implied warranty of
+dnl  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+dnl  GNU General Public License for more details.
+dnl 
+dnl  You should have received a copy of the GNU General Public License
+dnl  along with Nyx.  If not, see <http://www.gnu.org/licenses/>.
+dnl 
+
 
 
 m4_include([version.m4])
@@ -61,8 +76,8 @@ fi
 
 NYX_DATADIR="$NYX_BASEDIR/share/nyx"
 
-AC_SUBST(JONES_BASEDIR)
-AC_SUBST(JONES_DATADIR)
+AC_SUBST(NYX_BASEDIR)
+AC_SUBST(NYX_DATADIR)
 
 # Output Files
 AC_CONFIG_FILES([Makefile \

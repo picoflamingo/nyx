@@ -22,7 +22,7 @@
 
 
 noinst_PROGRAMS=test01 test_mbuf test_queue test_channel test_net \
-		test_net_server test_server
+		test_net_server test_server test_server1
 
 test01_SOURCES=test01.c
 test01_LDADD=../src/libnyx.la -lpthread
@@ -45,5 +45,7 @@ test_net_server_LDADD=../src/libnyx.la -lpthread
 test_server_SOURCES=test_server.c
 test_server_LDADD=../src/libnyx.la -lpthread
 
+test_server1_SOURCES=test_server1.c
+test_server1_LDADD=../src/libnyx.la -lpthread
 
 

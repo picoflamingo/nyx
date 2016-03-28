@@ -210,12 +210,12 @@ nyx_net_run_step (NYX_NET *net)
 	  c = nyx_list_get_item (net->channel, i);
 	  q = nyx_list_get_item (net->queue, i);
 	  m = nyx_net_msg_new (net, NULL, 0, c, q);
-	  if (c->cb) 
+	  if (c && c->cb) 
 	    {
 	      if ((c->cb (c, m)) <= 0)
 		{
-		  perror ("read/accept:");
-		  fprintf (stderr, "Error reading data... unregistering channel\n");
+		  //perror ("read/accept:");
+		  //fprintf (stderr, "Error reading data... unregistering channel\n");
 		  nyx_net_unregister (net, c);
 		}
 	    }

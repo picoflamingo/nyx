@@ -50,7 +50,7 @@ nyx_queue_new (int size)
   pthread_mutex_init (&q->mutex, NULL);
   pthread_cond_init  (&q->empty, NULL);
   pthread_cond_init  (&q->full, NULL);
-  
+  pthread_cond_broadcast (&q->empty);
   return q;
 }
 

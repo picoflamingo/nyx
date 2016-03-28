@@ -37,7 +37,9 @@ typedef struct nyx_worker_t
   NYX_QUEUE       *q;
   pthread_mutex_t mutex;
   int             run;
+  void            *args;
   void            *data;
+
 } NYX_WORKER;
 
 
@@ -69,6 +71,10 @@ extern "C" {
 
   NYX_WORKER*   nyx_worker_new (NYX_QUEUE *q, void *data);
   int           nyx_worker_free (NYX_WORKER *w);
+
+  int           nyx_worker_set_data (NYX_WORKER *w, void *data);
+  void*         nyx_worker_get_data (NYX_WORKER *w);
+
   int           nyx_worker_start (NYX_WORKER *w, NYX_WORKER_FUNC f, void *arg);
   int           nyx_worker_stop  (NYX_WORKER *w);
 
