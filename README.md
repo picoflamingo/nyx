@@ -16,6 +16,14 @@ ion, and was the mother of other personified deities such as Hypnos (Sleep) and 
 e in surviving mythology, but reveal her as a figure of such exceptional power and beauty, that she is feared by Zeus himse
 lf. She is found in the shadows of the world and only ever seen in glimpses._
 
+
+
+Status
+-------------------
+Still in very early stage... Interfaces will likely change. 
+
+
+
 .
 
 This file is part of Nyx

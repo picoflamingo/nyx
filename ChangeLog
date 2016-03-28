@@ -1,4 +1,7 @@
 
+Mon Mar 28 17:23:26 CEST 2016
+	* Added initial concept for NYX_SERVER... May still change
+
 Fri Mar 25 18:11:54 CET 2016
 	* Added NYX_QUEUE, NYX_CHANNEL and NYX_NET (using poll)
 
