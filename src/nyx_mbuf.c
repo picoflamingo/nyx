@@ -23,6 +23,7 @@
 #include <string.h>
 #include <stdarg.h>
 
+#include <assert.h>
 
 #include "nyx_mbuf.h"
 
@@ -128,16 +129,23 @@ nyx_mbuf_append_txt (NYX_MBUF *b, char *str)
 char*            
 nyx_mbuf_peek_line   (NYX_MBUF *b)
 {
+  int   l;
   char  *aux, *ret, c;
 
   if (!b) return NULL;
   if (!b->buf) return NULL;
-
+  if (b->len == 0) return NULL;
   if ((aux = strchr (b->buf, '\n')) == NULL) return NULL;
-  c = *aux;
-  *aux = 0;
-  ret = strdup (b->buf);
-  *aux = c;
+  //c = *aux;
+  //*aux = 0;
+
+  l = aux - b->buf + 2;  
+
+  //ret = strdup (b->buf);
+  ret = malloc (l);
+  memset (ret, 0, l);
+  strncpy (ret, b->buf, l-1);
+  //*aux = c;
 
   return ret;
 }
@@ -149,14 +157,12 @@ nyx_mbuf_get_line   (NYX_MBUF *b)
   int   len;
 
   if ((ret = nyx_mbuf_peek_line (b)) == NULL) return NULL;
-  len = strlen (ret) + 1;
-
-
+  len = strlen (ret);
 
   memmove (b->buf, b->buf + len, b->len - len);
   b->len -= len;
   memset (b->buf + b->len + 1, 0, len);
-
+  
   return ret;
 }
 

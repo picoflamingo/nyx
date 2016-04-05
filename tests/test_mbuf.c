@@ -34,7 +34,7 @@ main (int argc, char *argv[])
   buf1 = nyx_mbuf_new (0, "This is a initialization string\nSecond\n");
   buf2 = nyx_mbuf_new (1024, NULL);
   nyx_mbuf_append_txt (buf1, "This is a second initialization string\n");
-  nyx_mbuf_append_txt (buf2, "This is a second initialization string\n");
+  nyx_mbuf_append_txt (buf2, "\n");
 
   printf ("%p - buf1 (%d - %d): '%s'\n", buf1, 
 	  nyx_mbuf_get_size (buf1), 
@@ -44,6 +44,10 @@ main (int argc, char *argv[])
 	  nyx_mbuf_get_size (buf2), 
 	  nyx_mbuf_get_len (buf2), 
 	  (char*) nyx_mbuf_get_data (buf2));
+
+  str = nyx_mbuf_peek_line (buf2);
+  printf ("Peek:'%s'\n", str);
+
   
   str = nyx_mbuf_peek_line (buf1);
   printf ("Peek:'%s'\n", str);

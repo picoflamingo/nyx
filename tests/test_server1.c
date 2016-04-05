@@ -56,11 +56,11 @@ consumer (void *arg)
     {
       msg = (NYX_NET_MSG*) nyx_queue_get (q);
 
-      nyx_server_printf (s, msg->c, "DEFAULT:%s\n", msg->data);
+      nyx_server_printf (s, msg->c, "DEFAULT:%s", msg->data);
 
       free (msg->data);
       nyx_net_msg_free (msg);
-
+      sleep (2);
     }
 }
 
@@ -78,11 +78,11 @@ consumer1 (void *arg)
     {
       msg = (NYX_NET_MSG*) nyx_queue_get (q);
       if (!msg) continue;
-      nyx_server_printf (s, msg->c, "%s:%s\n", mw->id, msg->data);
+      nyx_server_printf (s, msg->c, "%s:%s", mw->id, msg->data);
 
       free (msg->data);
       nyx_net_msg_free (msg);
-      sleep (5); 
+      sleep (1); 
     }
 
 }

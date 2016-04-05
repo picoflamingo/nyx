@@ -50,6 +50,7 @@ static int
 _nyx_server_read_cb (NYX_CHANNEL *c, void *arg)
 {
   NYX_NET_MSG *msg = (NYX_NET_MSG*)arg;
+  NYX_NET_MSG *m = NULL;
   char *txt;
   int  r;
 
@@ -57,14 +58,18 @@ _nyx_server_read_cb (NYX_CHANNEL *c, void *arg)
     {
       return -1;
     }
+  
   /* Checks if there is a line available */
-  if ((txt = nyx_channel_get_line (msg->c)))
+  while ((txt = nyx_channel_get_line (msg->c)))
     {
+      m = nyx_net_msg_new (msg->net, (void*)txt, strlen(txt), msg->c, msg->q);
       /* Update message and add to queue.. Zero Copy */
-      nyx_net_msg_set (msg, (void*)txt, strlen(txt), msg->c, msg->q);
-      nyx_queue_add (msg->q, msg);
-    }
+      //nyx_net_msg_set (msg, (void*)txt, strlen(txt), msg->c, msg->q);
+      nyx_queue_add (msg->q, m);
 
+      
+    }
+  nyx_net_msg_free (msg);
   return 1;
 }
 

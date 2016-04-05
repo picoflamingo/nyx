@@ -39,16 +39,22 @@ consumer (void *arg)
   NYX_SERVER  *s = (NYX_SERVER*) nyx_worker_get_data (w);
   NYX_QUEUE   *q;
   NYX_NET_MSG *msg;
-
+  int         cnt = 0;
   q = nyx_server_get_queue (s);
   while (1)
     {
       msg = (NYX_NET_MSG*) nyx_queue_get (q);
 
-      nyx_server_printf (s, msg->c, "ECHO:%s\n", msg->data);
+      if (msg->size == 0) 
+	{
+	  printf ("*** Size: 0\n");
+	  continue;
+	}
+      nyx_server_printf (s, msg->c, "ECHO(%d):%s", cnt, msg->data);
 
       free (msg->data);
       nyx_net_msg_free (msg);
+      cnt++;
     }
 }
 
