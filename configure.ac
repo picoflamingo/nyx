@@ -36,6 +36,7 @@ AC_PROG_LIBTOOL
 
 # Checks for libraries
 AC_CHECK_LIB(dl, main)
+AC_CHECK_LIB(pthread, main)
 
 # Checks for header files
 AC_CONFIG_HEADERS([config.h])

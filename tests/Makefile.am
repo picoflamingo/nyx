@@ -18,11 +18,11 @@
 # along with Nyx.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-#AM_CFLAGS=-I$(srcdir)/../include
+AM_CFLAGS=-I$(srcdir)/../src
 
 
 noinst_PROGRAMS=test01 test_mbuf test_queue test_channel test_net \
-		test_net_server test_server test_server1
+		test_net_server test_server test_server1 test_server2
 
 test01_SOURCES=test01.c
 test01_LDADD=../src/libnyx.la -lpthread
@@ -48,4 +48,6 @@ test_server_LDADD=../src/libnyx.la -lpthread
 test_server1_SOURCES=test_server1.c
 test_server1_LDADD=../src/libnyx.la -lpthread
 
+test_server2_SOURCES=test_server2.c
+test_server2_LDADD=../src/libnyx.la -lpthread
 

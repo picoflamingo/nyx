@@ -87,6 +87,7 @@ nyx_queue_add  (NYX_QUEUE *q, void *item)
   q->tail %= q->cap;
 
   /* Wake up threads waiting for data, if any */
+
   pthread_cond_broadcast (&q->empty);
 
   pthread_mutex_unlock (&q->mutex);

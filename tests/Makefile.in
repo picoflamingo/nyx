@@ -34,8 +34,6 @@
 # along with Nyx.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-#AM_CFLAGS=-I$(srcdir)/../include
-
 VPATH = @srcdir@
 am__is_gnu_make = test -n '$(MAKEFILE_LIST)' && test -n '$(MAKELEVEL)'
 am__make_running_with_option = \
@@ -103,7 +101,7 @@ host_triplet = @host@
 noinst_PROGRAMS = test01$(EXEEXT) test_mbuf$(EXEEXT) \
 	test_queue$(EXEEXT) test_channel$(EXEEXT) test_net$(EXEEXT) \
 	test_net_server$(EXEEXT) test_server$(EXEEXT) \
-	test_server1$(EXEEXT)
+	test_server1$(EXEEXT) test_server2$(EXEEXT)
 subdir = tests
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/depcomp
@@ -147,6 +145,9 @@ test_server_DEPENDENCIES = ../src/libnyx.la
 am_test_server1_OBJECTS = test_server1.$(OBJEXT)
 test_server1_OBJECTS = $(am_test_server1_OBJECTS)
 test_server1_DEPENDENCIES = ../src/libnyx.la
+am_test_server2_OBJECTS = test_server2.$(OBJEXT)
+test_server2_OBJECTS = $(am_test_server2_OBJECTS)
+test_server2_DEPENDENCIES = ../src/libnyx.la
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -184,11 +185,13 @@ am__v_CCLD_1 =
 SOURCES = $(test01_SOURCES) $(test_channel_SOURCES) \
 	$(test_mbuf_SOURCES) $(test_net_SOURCES) \
 	$(test_net_server_SOURCES) $(test_queue_SOURCES) \
-	$(test_server_SOURCES) $(test_server1_SOURCES)
+	$(test_server_SOURCES) $(test_server1_SOURCES) \
+	$(test_server2_SOURCES)
 DIST_SOURCES = $(test01_SOURCES) $(test_channel_SOURCES) \
 	$(test_mbuf_SOURCES) $(test_net_SOURCES) \
 	$(test_net_server_SOURCES) $(test_queue_SOURCES) \
-	$(test_server_SOURCES) $(test_server1_SOURCES)
+	$(test_server_SOURCES) $(test_server1_SOURCES) \
+	$(test_server2_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -333,6 +336,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+AM_CFLAGS = -I$(srcdir)/../src
 test01_SOURCES = test01.c
 test01_LDADD = ../src/libnyx.la -lpthread
 test_mbuf_SOURCES = test_mbuf.c
@@ -349,6 +353,8 @@ test_server_SOURCES = test_server.c
 test_server_LDADD = ../src/libnyx.la -lpthread
 test_server1_SOURCES = test_server1.c
 test_server1_LDADD = ../src/libnyx.la -lpthread
+test_server2_SOURCES = test_server2.c
+test_server2_LDADD = ../src/libnyx.la -lpthread
 all: all-am
 
 .SUFFIXES:
@@ -425,6 +431,10 @@ test_server1$(EXEEXT): $(test_server1_OBJECTS) $(test_server1_DEPENDENCIES) $(EX
 	@rm -f test_server1$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(test_server1_OBJECTS) $(test_server1_LDADD) $(LIBS)
 
+test_server2$(EXEEXT): $(test_server2_OBJECTS) $(test_server2_DEPENDENCIES) $(EXTRA_test_server2_DEPENDENCIES) 
+	@rm -f test_server2$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(test_server2_OBJECTS) $(test_server2_LDADD) $(LIBS)
+
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
 
@@ -439,6 +449,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_queue.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_server.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_server1.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_server2.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

@@ -1,4 +1,8 @@
 
+Wed Apr  6 22:59:43 CEST 2016
+	* Added example referred from tutorials
+	* Fixed autotools configuration files
+
 Tue Apr  5 22:06:57 CEST 2016
 	* Fixed problem with mbuf objects
 

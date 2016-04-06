@@ -22,7 +22,20 @@ Status
 -------------------
 Still in very early stage... Interfaces will likely change. 
 
+Build
+----------------------------------
 
+$ autoreconf --force --install
+$ ./configure
+$ make
+$ sudo make install
+
+
+Tutorials
+--------------------------
+Some information on the library can be found in the following links
+
+http://www.papermint-designs.com/dmo-blog/2016-04-introducing-nyx--basic-networking-api
 
 .
 
