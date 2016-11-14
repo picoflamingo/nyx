@@ -66,7 +66,7 @@ _default_read  (NYX_CHANNEL* c, void *buf, size_t count)
 
 
 /* Resource format
- *  protocol://host:port[port1]/params
+ *  protocol://host:port[,port1]/params
  *    protocols: tcp, udp, ssl
  *    host     : * -> server
  *               hostname, ip -> client
@@ -463,11 +463,32 @@ nyx_channel_set_read_cb  (NYX_CHANNEL *c, NYX_READ  rcb)
 
 /* I/O Helper functions */
 int          
-nyx_channel_pritnf (NYX_CHANNEL *c, char *fmt,...)
+nyx_channel_printf (NYX_CHANNEL *c, char *fmt,...)
 {
+  char    buf[BUF_SIZE];
+  int     len;
+  va_list arg;
+
   if (!c) return -1;
 
-  return 0;
+  if (!fmt) return -1;
+
+  va_start (arg, fmt);
+
+  memset (buf, 0, BUF_SIZE);
+  len = vsnprintf (buf, BUF_SIZE, fmt, arg);
+
+  if (len >= BUF_SIZE)
+    {
+      fprintf (stderr, "Output truncated!!!\n");
+      buf[BUF_SIZE - 1] = 0;
+    }
+
+  len = nyx_channel_write (c, buf, len);
+
+  va_end (arg);
+
+  return len;
 }
 /* Low level functions: Sockets */
 

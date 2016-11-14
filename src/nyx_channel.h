@@ -37,6 +37,8 @@
 
 #define NYX_DEFAULT_PROTO NYX_PROTO_TCP
 
+#define BUF_SIZE 4096
+
 typedef struct nyx_msg_t
 {
   void  *data;  /* Change it to a NYX_MBUF???? */
@@ -112,7 +114,7 @@ extern "C" {
   
 
   /* I/O Helper functions */
-  int          nyx_channel_pritnf (NYX_CHANNEL *c, char *fmt,...);
+  int          nyx_channel_printf (NYX_CHANNEL *c, char *fmt,...);
 
   int          nyx_channel_tcp_init (NYX_CHANNEL *c, char *host, int port, int is_server);
 

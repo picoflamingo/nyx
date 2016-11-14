@@ -26,7 +26,7 @@
 #include <nyx_channel.h>
 #include <nyx_net.h>
 
-#define BUF_SIZE 4096
+//#define BUF_SIZE 4096
 
 /* NYX_WORKER to be moved into NYX_NET or its own file */
 #include <pthread.h>

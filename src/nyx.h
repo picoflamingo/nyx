@@ -20,7 +20,6 @@
 #ifndef NYX_H
 #define NYX_H
 
-
 #ifdef __cplusplus
 extern "C" {
 #endif
